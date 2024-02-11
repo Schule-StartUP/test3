@@ -1,0 +1,31 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main # Oder die Hauptbranch Ihres Repositories
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14' # Oder eine andere gewünschte Version
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build
+      run: npm run build # Ändern Sie dies entsprechend Ihrem Projekt
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@4.1.5
+      with:
+        branch: gh-pages # Oder der Name Ihrer Zielbranch
+        folder: build # Der Ordner, in dem Ihre gebauten Dateien liegen
